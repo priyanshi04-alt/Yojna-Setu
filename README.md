@@ -1,107 +1,123 @@
 # 🏛️ YojnaSetu (योजनासेतु)
-> **Bridging the Gap Between Citizens and Government Schemes**
+> **Bridging the Gap Between Indian Citizens and Government Schemes**
 
-YojnaSetu is a premium, AI-powered digital assistance platform designed to simplify how citizens discover, understand, and apply for government schemes in India. Built with a focus on accessibility, the platform guides users through eligibility verification, documentation checklists, and application steps via interactive online and offline assistance modes.
+[![Vercel Deployment](https://img.shields.io/badge/Vercel-Deployed-success?style=for-the-badge&logo=vercel&logoColor=white&color=000000)](https://yojnasetu-ruby.vercel.app)
+[![React Version](https://img.shields.io/badge/React-19.2-61DAFB?style=for-the-badge&logo=react&logoColor=white)](https://react.dev/)
+[![Vite Version](https://img.shields.io/badge/Vite-8.0-646CFF?style=for-the-badge&logo=vite&logoColor=white)](https://vite.dev/)
+[![Leaflet](https://img.shields.io/badge/Leaflet-1.9.4-B5E48C?style=for-the-badge&logo=leaflet&logoColor=black)](https://leafletjs.com/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](https://opensource.org/licenses/MIT)
 
-🖥️ **Live Demo**: [yojnasetu-ruby.vercel.app](https://yojnasetu-ruby.vercel.app)
+YojnaSetu is a premium, AI-powered digital assistance platform designed to simplify how citizens discover, verify eligibility for, and apply for government schemes in India. Built with a focus on accessibility and responsiveness, the platform guides users through verification checkpoints, documentation lists, and step-by-step application flows via interactive online and offline assistance co-pilots.
+
+🌐 **Live Production Link**: [yojnasetu-ruby.vercel.app](https://yojnasetu-ruby.vercel.app)
 
 ---
 
-## 🌟 Key Features
+## 🗺️ User Flow & System Architecture
 
-### 1. 🤖 AI Scheme Discovery Chatbot
-* **Conversational Search**: Interactive chatbot helps users discover schemes based on simple questions about their profile (age, state, caste, profession, and income).
-* **Automatic Profile Sync**: Direct integration with the user's dashboard vault to auto-fill search preferences.
+This flow diagram illustrates how citizens interact with YojnaSetu to discover schemes and proceed with application assistance:
+
+```mermaid
+graph TD
+    A[👤 Citizen / User] --> B[🔑 Personalized Vault / Profile]
+    B --> C[🏠 Central Scheme Dashboard]
+    
+    C --> D[🤖 Conversational AI Discovery Chatbot]
+    C --> E[🔍 Scheme Search & Category Filters]
+    
+    D --> F[📄 Scheme Details Page]
+    E --> F
+    
+    F --> G{How to Apply?}
+    G -->|🌐 Apply Online| H[⚡ Online Co-Pilot Simulator]
+    G -->|📍 Apply Offline| I[🗺️ GPS Map Navigator]
+    
+    H --> J[✔️ Auto-Filled Form & Clipboard Tooling]
+    I --> K[🐰 Touch-Draggable Bunny Guide to CSC/Office]
+```
+
+---
+
+## 🌟 Premium Features
+
+### 1. 🤖 Conversational AI Scheme Discovery
+* **Guided Matching**: The chatbot conducts an interactive assessment, asking about age, income, caste, state, and occupation.
+* **Auto Profile Sync**: Connects directly to the user's secure vault. Once the user updates their profile, search preferences sync instantly.
 
 ### 2. ⚡ Online Co-Pilot Simulator
-* **Interactive Form Assistance**: Visualizes the web application flow step-by-step with a mock browser simulator.
-* **Auto-Fill & Clipboard Tooling**: Pre-populates mock application fields and provides simple click-to-copy fields to reduce user friction.
-* **Responsive Sim View**: Address bar truncation and compact UI scale dynamically to prevent mobile layout overflow.
+* **Interactive Browser Emulation**: Simulates a live Chrome browser window and extension toolbar.
+* **Smart Auto-Fill**: Automatically inputs mock candidate data to show users exactly how to fill out registration forms.
+* **Ellipsis Address Bar**: Clean, truncated mock URL display to ensure compatibility on smaller smartphone screens.
+* **Clipboard Assistant**: Displays user attributes as copyable cards for manual copy-paste simulation.
 
 ### 3. 🗺️ Interactive Offline Map Navigator
-* **Bunny Route Guide**: An interactive, lovable bunny helper mascot that guides users step-by-step to the nearest administrative offices (CSCs, block offices, etc.).
-* **Touch-Optimized Map canvas**: Fully draggable bunny with bounds protection, custom drag-and-drop boundary limits, and zero-interference touch mechanics for mobile viewports.
-* **Collapsible Route Settings**: GPS routes, documents checklist, and turn-by-turn directions fold into elegant accordion panels on mobile.
-* **Optimal Default Zoom**: Set to a balanced city-level scale (zoom `14`) to give immediate geographic context.
+* **Bunny Route Guide**: A cute, animated bunny companion that walks the user step-by-step along the route to the nearest office (CSCs, Block Offices, etc.).
+* **Draggable Touch Control**: Features full touch-listener implementations that limit boundaries dynamically, allowing free bunny dragging across mobile screens.
+* **Accordion Detail Views**: GPS route settings, document checklists, and turn-by-turn navigation guides collapse into smooth accordion tabs on mobile viewports to conserve screen real estate.
+* **Optimized Viewport Scale**: Calibrated default map zoom (`14`) displaying local area contexts immediately.
 
 ### 4. 🔀 Resilient Client-Side Hash Router
-* **Bookmarkable State**: Uses a custom, vanilla React hash-based router that syncs views (`window.location.hash`).
-* **Refresh Persistence**: Page reloads preserve the active route, query parameters, and selected schemes (e.g. `#/details?id=ira-wrflsncs`) instead of reverting to the home screen.
-
-### 5. 📱 Premium Mobile-Responsive UI
-* **Aesthetic Styling**: Modern light-red and emerald green accents compliance, card layouts, clean shadows, and smooth micro-animations.
-* **Adaptive Breakpoints**: 100% responsiveness on mobile viewports (320px–768px) with zero horizontal scroll or clipped text boxes.
+* **URL Synced Navigation**: Utilizes a lightweight, custom `hashchange` routing architecture.
+* **Refresh Persistence**: Page reloads preserve parameters (e.g. `#/details?id=ira-wrflsncs`), restoring the exact state, active views, and query variables.
 
 ---
 
-## 🛠️ Tech Stack
+## 📊 Comparative Analysis: Online vs. Offline Co-Pilot
 
-* **Frontend Framework**: [React 19](https://react.dev/) + [Vite 8](https://vite.dev/) (Fast HMR & build optimization)
-* **Icons**: [Lucide React](https://lucide.dev/) (For clean, modern interface iconography)
-* **Mapping Library**: [React Leaflet 5](https://react-leaflet.js.org/) & [Leaflet 1.9](https://leafletjs.com/) (For GPS plotting and marker rendering)
-* **Styling**: Vanilla CSS (Tailored variables, flexbox/grid utility patterns, and responsive overrides)
-* **Deployment**: [Vercel](https://vercel.com)
-
----
-
-## 📁 Folder Structure
-
-```
-HACKTIVATORS/
-├── public/                 # Static icons and metadata assets
-├── src/
-│   ├── assets/             # Images, banners, and bunny guides
-│   ├── data/
-│   │   └── SchemesData.js  # Main scheme repository (~20k lines, 300+ schemes)
-│   ├── App.css             # Main stylesheet (structural components)
-│   ├── App.jsx             # Main application views, router, and logic
-│   ├── index.css           # Global typography, color tokens, and responsive overrides
-│   └── main.jsx            # React root mount point
-├── eslint.config.js        # Linting rules
-├── index.html              # Base HTML template (light-scheme compliant)
-├── package.json            # Scripts & dependencies
-└── vite.config.js          # Vite configurations
-```
+| Feature | ⚡ Online Co-Pilot | 🗺️ Offline Navigator |
+| :--- | :--- | :--- |
+| **Primary Goal** | Simulate digital application forms. | Guide users to physical administrative centers. |
+| **Interactive Helper** | Browser Extension Simulator with clipboard tools. | Draggable Bunny mascot routing on Leaflet Map. |
+| **Key Assets** | Document copy cards, auto-fill buttons. | Turn-by-turn directions, collapsible checklist. |
+| **Mobile Adaptability** | Compact grid layout, auto-ellipsis URLs. | `35vh` Map canvas + `65vh` responsive sidebar. |
 
 ---
 
-## 🚀 Getting Started
+## 🛠️ Technology Stack
 
-Follow these steps to run the project locally on your machine:
+* **Core**: React 19.2 (Functional Components, Custom Hooks)
+* **Build System**: Vite 8.0 (Fast HMR, asset minification)
+* **Mapping**: Leaflet 1.9.4 & React Leaflet 5.0.0 (Custom geographic routes, circle markers)
+* **Icons**: Lucide React (Crisp SVG vector iconography)
+* **Styling**: Vanilla CSS (Fluid design tokens, variables, responsive breakpoints)
+
+---
+
+## 🚀 Installation & Setup
+
+Get YojnaSetu running locally on your device in minutes:
 
 ### 1. Prerequisites
-Make sure you have [Node.js](https://nodejs.org/) installed (v18 or higher is recommended).
+Ensure you have **Node.js** (v18+) and **npm** installed.
 
-### 2. Installation
-Clone the repository and install all dependencies:
+### 2. Setup the Repository
 ```bash
 # Clone the repository
 git clone https://github.com/priyanshi04-alt/yojnasetu.git
 
-# Navigate into the project folder
+# Go into the project directory
 cd yojnasetu
 
-# Install npm packages
+# Install dependencies
 npm install
 ```
 
-### 3. Running Locally
-Start the development server:
+### 3. Run Development Server
 ```bash
 npm run dev
 ```
-Open **[http://localhost:5173](http://localhost:5173)** in your browser to view the application.
+Once started, navigate to **[http://localhost:5173](http://localhost:5173)** in your browser.
 
-### 4. Building for Production
-To bundle the project for production deployment:
+### 4. Compile Production Build
 ```bash
 npm run build
 ```
-This builds static assets into the `dist/` folder, ready to be served on any hosting platform (Vercel, Netlify, Github Pages, etc.).
+Static assets will build into the `/dist` folder, optimized and ready to deploy.
 
 ---
 
-## 🛡️ Theme & Design Compliance
-* Built with absolute support for light mode environments (`color-scheme: light`).
-* Fully functional keyboard accessibility for buttons and link highlights.
-* Seamless offline route simulation with clean dynamic icons.
+## 📱 Mobile Responsiveness Overrides
+* **Breakpoints**: Tailored specifically for viewports down to `320px` width.
+* **Overflow Controls**: Hardcoded styles replaced by flexible classes (`details-container`, `copilot-grid-3`).
+* **Input Optimization**: Inputs, select dropdowns, and button padding scale down on mobile to prevent clipping and layout breaking.
+* **Accessibility**: Full compliance with `color-scheme: light` color contracts and keyboard navigation targets.
