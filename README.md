@@ -479,10 +479,6 @@ Chitkara University, Himachal Pradesh
 
 ---
 
-## ⭐ Support the Project
-
-If you find YojnaSetu useful or interesting, consider giving the repository a ⭐ on GitHub.
-
 <p align="center">
   <strong>YojnaSetu — Making Government Schemes Easier to Discover, Understand & Apply.</strong>
 </p>
