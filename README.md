@@ -291,24 +291,7 @@ The goal is to make government information easier to understand for users with d
 
 * **Vercel**
 
----
 
-# 📱 Responsive Design
-
-YojnaSetu is designed to work across desktop and mobile screen sizes.
-
-### Responsive improvements include:
-
-* 📱 Mobile-friendly layouts
-* 🔄 Flexible component grids
-* 📐 Responsive spacing
-* 🧭 Mobile navigation
-* 📂 Collapsible information sections
-* 🗺️ Optimized map viewport
-* 📝 Mobile-friendly forms
-* 🔘 Touch-friendly controls
-
-The interface is optimized for smaller screens while maintaining the same core functionality.
 
 ---
 
