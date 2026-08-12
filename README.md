@@ -1,123 +1,505 @@
 # 🏛️ YojnaSetu (योजनासेतु)
+
 > **Bridging the Gap Between Indian Citizens and Government Schemes**
 
-[![Vercel Deployment](https://img.shields.io/badge/Vercel-Deployed-success?style=for-the-badge&logo=vercel&logoColor=white&color=000000)](https://yojnasetu-ruby.vercel.app)
-[![React Version](https://img.shields.io/badge/React-19.2-61DAFB?style=for-the-badge&logo=react&logoColor=white)](https://react.dev/)
-[![Vite Version](https://img.shields.io/badge/Vite-8.0-646CFF?style=for-the-badge&logo=vite&logoColor=white)](https://vite.dev/)
-[![Leaflet](https://img.shields.io/badge/Leaflet-1.9.4-B5E48C?style=for-the-badge&logo=leaflet&logoColor=black)](https://leafletjs.com/)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](https://opensource.org/licenses/MIT)
+<p align="center">
+  <img src="screenshots/home.png" alt="YojnaSetu Home Page" width="90%">
+</p>
 
-YojnaSetu is a premium, AI-powered digital assistance platform designed to simplify how citizens discover, verify eligibility for, and apply for government schemes in India. Built with a focus on accessibility and responsiveness, the platform guides users through verification checkpoints, documentation lists, and step-by-step application flows via interactive online and offline assistance co-pilots.
+YojnaSetu is a premium, AI-powered digital assistance platform designed to simplify how citizens discover, verify eligibility for, and apply for government schemes in India.
 
-🌐 **Live Production Link**: [yojnasetu-ruby.vercel.app](https://yojnasetu-ruby.vercel.app)
+The platform helps users find relevant government schemes based on their profile, understand eligibility requirements, prepare required documents, and receive guided assistance for both online and offline applications.
+
+🌐 **Live Production:** [yojnasetu-ruby.vercel.app](https://yojnasetu-ruby.vercel.app)
+
+---
+
+## ✨ Why YojnaSetu?
+
+Finding the right government scheme can be difficult because information is often spread across multiple portals, eligibility rules can be complicated, and application procedures may be unfamiliar to citizens.
+
+YojnaSetu brings these steps together into one guided platform:
+
+* 🔍 Personalized government scheme discovery
+* 🤖 AI-powered conversational assistance
+* ✅ Eligibility-based recommendations
+* 📄 Scheme details and document guidance
+* ⚡ Online application Co-Pilot
+* 🗺️ Offline office and CSC navigation
+* 🔐 Personalized user profile and document vault
+* 📱 Responsive and accessible interface
 
 ---
 
 ## 🗺️ User Flow & System Architecture
 
-This flow diagram illustrates how citizens interact with YojnaSetu to discover schemes and proceed with application assistance:
-
 ```mermaid
 graph TD
-    A[👤 Citizen / User] --> B[🔑 Personalized Vault / Profile]
+    A[👤 Citizen / User] --> B[🔐 Personalized Profile / Vault]
     B --> C[🏠 Central Scheme Dashboard]
-    
-    C --> D[🤖 Conversational AI Discovery Chatbot]
-    C --> E[🔍 Scheme Search & Category Filters]
-    
-    D --> F[📄 Scheme Details Page]
+
+    C --> D[🤖 Conversational AI Discovery]
+    C --> E[🔍 Scheme Search & Filters]
+
+    D --> F[📄 Scheme Details]
     E --> F
-    
+
     F --> G{How to Apply?}
-    G -->|🌐 Apply Online| H[⚡ Online Co-Pilot Simulator]
-    G -->|📍 Apply Offline| I[🗺️ GPS Map Navigator]
-    
-    H --> J[✔️ Auto-Filled Form & Clipboard Tooling]
-    I --> K[🐰 Touch-Draggable Bunny Guide to CSC/Office]
+
+    G -->|🌐 Online| H[⚡ Application Co-Pilot]
+    G -->|📍 Offline| I[🗺️ GPS / CSC Navigator]
+
+    H --> J[📋 Profile Copy & Auto-Fill Assistance]
+    I --> K[🐰 Interactive Bunny Route Guide]
 ```
 
----
+### Complete User Journey
 
-## 🌟 Premium Features
-
-### 1. 🤖 Conversational AI Scheme Discovery
-* **Guided Matching**: The chatbot conducts an interactive assessment, asking about age, income, caste, state, and occupation.
-* **Auto Profile Sync**: Connects directly to the user's secure vault. Once the user updates their profile, search preferences sync instantly.
-
-### 2. ⚡ Online Co-Pilot Simulator
-* **Interactive Browser Emulation**: Simulates a live Chrome browser window and extension toolbar.
-* **Smart Auto-Fill**: Automatically inputs mock candidate data to show users exactly how to fill out registration forms.
-* **Ellipsis Address Bar**: Clean, truncated mock URL display to ensure compatibility on smaller smartphone screens.
-* **Clipboard Assistant**: Displays user attributes as copyable cards for manual copy-paste simulation.
-
-### 3. 🗺️ Interactive Offline Map Navigator
-* **Bunny Route Guide**: A cute, animated bunny companion that walks the user step-by-step along the route to the nearest office (CSCs, Block Offices, etc.).
-* **Draggable Touch Control**: Features full touch-listener implementations that limit boundaries dynamically, allowing free bunny dragging across mobile screens.
-* **Accordion Detail Views**: GPS route settings, document checklists, and turn-by-turn navigation guides collapse into smooth accordion tabs on mobile viewports to conserve screen real estate.
-* **Optimized Viewport Scale**: Calibrated default map zoom (`14`) displaying local area contexts immediately.
-
-### 4. 🔀 Resilient Client-Side Hash Router
-* **URL Synced Navigation**: Utilizes a lightweight, custom `hashchange` routing architecture.
-* **Refresh Persistence**: Page reloads preserve parameters (e.g. `#/details?id=ira-wrflsncs`), restoring the exact state, active views, and query variables.
+**Profile → Discover → Match → Understand → Prepare → Apply Online / Offline**
 
 ---
 
-## 📊 Comparative Analysis: Online vs. Offline Co-Pilot
+# 🌟 Core Features
 
-| Feature | ⚡ Online Co-Pilot | 🗺️ Offline Navigator |
-| :--- | :--- | :--- |
-| **Primary Goal** | Simulate digital application forms. | Guide users to physical administrative centers. |
-| **Interactive Helper** | Browser Extension Simulator with clipboard tools. | Draggable Bunny mascot routing on Leaflet Map. |
-| **Key Assets** | Document copy cards, auto-fill buttons. | Turn-by-turn directions, collapsible checklist. |
-| **Mobile Adaptability** | Compact grid layout, auto-ellipsis URLs. | `35vh` Map canvas + `65vh` responsive sidebar. |
+## 1. 🔐 Personalized Profile & Eligibility
+
+Users create a profile containing important eligibility attributes such as:
+
+* Age
+* State
+* Occupation
+* Caste category
+* Annual income
+* Other relevant profile information
+
+The profile is then used to personalize scheme recommendations.
+
+### Create Account
+
+<p align="center">
+  <img src="screenshots/signup.png" alt="YojnaSetu Create Account" width="85%">
+</p>
 
 ---
 
-## 🛠️ Technology Stack
+## 2. 🤖 Conversational AI Scheme Discovery
 
-* **Core**: React 19.2 (Functional Components, Custom Hooks)
-* **Build System**: Vite 8.0 (Fast HMR, asset minification)
-* **Mapping**: Leaflet 1.9.4 & React Leaflet 5.0.0 (Custom geographic routes, circle markers)
-* **Icons**: Lucide React (Crisp SVG vector iconography)
-* **Styling**: Vanilla CSS (Fluid design tokens, variables, responsive breakpoints)
+YojnaSetu provides a conversational interface where users can describe what they are looking for using natural language.
+
+Users can explore areas such as:
+
+* Farmer schemes
+* Education scholarships
+* Small business support
+* Welfare schemes
+* Other government benefits
+
+The conversational experience reduces the need to understand complex government terminology.
+
+### AI Scheme Discovery
+
+<p align="center">
+  <img src="screenshots/chatbot.png" alt="YojnaSetu AI Chatbot" width="85%">
+</p>
 
 ---
 
-## 🚀 Installation & Setup
+## 3. 🔍 Personalized Scheme Recommendations
 
-Get YojnaSetu running locally on your device in minutes:
+The platform matches user information against available scheme criteria and presents relevant recommendations.
 
-### 1. Prerequisites
-Ensure you have **Node.js** (v18+) and **npm** installed.
+Users can search using:
 
-### 2. Setup the Repository
+* Profession
+* Caste
+* State
+* Age
+* Income
+
+The result page presents schemes that match the provided profile.
+
+### Scheme Recommendations
+
+<p align="center">
+  <img src="screenshots/results.png" alt="YojnaSetu Scheme Recommendations" width="90%">
+</p>
+
+---
+
+## 4. 📄 Detailed Scheme Information
+
+Each scheme has a dedicated details page that helps users understand the scheme before applying.
+
+The page provides information such as:
+
+* Eligibility
+* Benefits
+* Application process
+* Required documents
+* Important instructions
+* Online application assistance
+* Offline assistance
+
+Users can also request simplified explanations through the AI assistance features.
+
+### Scheme Details
+
+<p align="center">
+  <img src="screenshots/scheme-details.png" alt="YojnaSetu Scheme Details" width="90%">
+</p>
+
+---
+
+# ⚡ Online Application Co-Pilot
+
+YojnaSetu provides an interactive **Application Co-Pilot** that guides users through the online application process.
+
+Instead of simply redirecting users to an external portal, the Co-Pilot demonstrates how the application process works.
+
+### Key Capabilities
+
+* 🌐 Official portal redirection
+* 📋 One-click profile information copying
+* 📝 Form-filling guidance
+* 📂 Required document checklist
+* 📄 Document upload assistance
+* 🔗 Application reference tracking
+* 💡 Step-by-step application guidance
+
+### Application Co-Pilot
+
+<p align="center">
+  <img src="screenshots/copilot.png" alt="YojnaSetu Application Co-Pilot" width="90%">
+</p>
+
+---
+
+# 🗺️ Offline GPS & CSC Navigator
+
+Not every citizen can complete an application online.
+
+YojnaSetu therefore provides an offline assistance workflow that helps users locate nearby:
+
+* Common Service Centres (CSCs)
+* Government offices
+* Support centres
+* Other relevant administrative locations
+
+The navigator uses an interactive map with route guidance and a visual companion to make the experience easier to understand.
+
+### Offline Navigation Features
+
+* 📍 Location-based office discovery
+* 🗺️ Interactive Leaflet map
+* 🚗 Car navigation
+* 🚶 Walking mode
+* 🚌 Bus mode
+* 🚆 Train mode
+* 🐰 Interactive draggable bunny guide
+* 🧭 Turn-by-turn directions
+* 📱 Mobile-friendly navigation interface
+
+### GPS / Bunny Map
+
+<p align="center">
+  <img src="screenshots/map.png" alt="YojnaSetu GPS and Bunny Map Navigator" width="90%">
+</p>
+
+---
+
+# 📑 Document Assistance
+
+YojnaSetu helps users understand and prepare documents required for applications.
+
+The platform can display document requirements such as:
+
+* Identity documents
+* Income-related documents
+* Ration card
+* Employment-related documents
+* Bank passbook
+* Other scheme-specific documents
+
+Users can maintain their documents through the platform's **Documents Vault** workflow.
+
+---
+
+# 🧠 AI-Assisted Guidance
+
+YojnaSetu integrates AI assistance into multiple parts of the user journey.
+
+### AI capabilities include:
+
+* 💬 Natural-language scheme discovery
+* 📖 Simplified scheme explanations
+* 👶 "Explain Like I'm 10" mode
+* 🇮🇳 Hindi explanations
+* ❓ Eligibility guidance
+* 📄 Document guidance
+* 📝 Application assistance
+
+The goal is to make government information easier to understand for users with different levels of technical knowledge.
+
+---
+
+# 🔀 Online vs Offline Co-Pilot
+
+| Feature        | ⚡ Online Co-Pilot                | 🗺️ Offline Navigator                  |
+| -------------- | -------------------------------- | -------------------------------------- |
+| Primary Goal   | Assist with digital applications | Help reach physical assistance centres |
+| Interface      | Browser/application simulator    | Interactive map                        |
+| Assistance     | Profile copy & form guidance     | GPS & route guidance                   |
+| Documents      | Digital document checklist       | Offline preparation guidance           |
+| Navigation     | Official portal redirection      | CSC / office directions                |
+| Companion      | Application Co-Pilot             | 🐰 Bunny Guide                         |
+| Mobile Support | ✅                                | ✅                                      |
+
+---
+
+# 🛠️ Technology Stack
+
+### Frontend
+
+* **React 19.2**
+* **Vite 8.0**
+* Functional Components
+* Custom Hooks
+* Client-side routing
+
+### Mapping
+
+* **Leaflet 1.9.4**
+* **React Leaflet 5.0.0**
+* Interactive geographic routes
+* Map markers
+* Route visualization
+
+### UI & Styling
+
+* Vanilla CSS
+* CSS Variables
+* Responsive layouts
+* Fluid design system
+* Responsive breakpoints
+
+### Icons
+
+* **Lucide React**
+* SVG-based iconography
+
+### Deployment
+
+* **Vercel**
+
+---
+
+# 📱 Responsive Design
+
+YojnaSetu is designed to work across desktop and mobile screen sizes.
+
+### Responsive improvements include:
+
+* 📱 Mobile-friendly layouts
+* 🔄 Flexible component grids
+* 📐 Responsive spacing
+* 🧭 Mobile navigation
+* 📂 Collapsible information sections
+* 🗺️ Optimized map viewport
+* 📝 Mobile-friendly forms
+* 🔘 Touch-friendly controls
+
+The interface is optimized for smaller screens while maintaining the same core functionality.
+
+---
+
+# 🔀 Client-Side Hash Routing
+
+YojnaSetu uses a lightweight hash-based navigation architecture.
+
+Example:
+
+```text
+#/auth
+#/search
+#/details?id=ae
+#/copilot?id=ae
+#/offline_guide?id=ae
+#/chat
+```
+
+This provides:
+
+* URL-synchronized navigation
+* Refresh persistence
+* Query parameter support
+* Direct page access
+* Lightweight client-side routing
+
+---
+
+# 🚀 Installation & Setup
+
+## 1. Prerequisites
+
+Make sure the following are installed:
+
+* Node.js 18+
+* npm
+* Git
+
+## 2. Clone the Repository
+
 ```bash
-# Clone the repository
 git clone https://github.com/priyanshi04-alt/yojnasetu.git
+```
 
-# Go into the project directory
+## 3. Navigate to the Project
+
+```bash
 cd yojnasetu
+```
 
-# Install dependencies
+## 4. Install Dependencies
+
+```bash
 npm install
 ```
 
-### 3. Run Development Server
+## 5. Start Development Server
+
 ```bash
 npm run dev
 ```
-Once started, navigate to **[http://localhost:5173](http://localhost:5173)** in your browser.
 
-### 4. Compile Production Build
+Open the local development URL shown by Vite, usually:
+
+```text
+http://localhost:5173
+```
+
+## 6. Build for Production
+
 ```bash
 npm run build
 ```
-Static assets will build into the `/dist` folder, optimized and ready to deploy.
+
+The optimized production files will be generated inside:
+
+```text
+dist/
+```
 
 ---
 
-## 📱 Mobile Responsiveness Overrides
-* **Breakpoints**: Tailored specifically for viewports down to `320px` width.
-* **Overflow Controls**: Hardcoded styles replaced by flexible classes (`details-container`, `copilot-grid-3`).
-* **Input Optimization**: Inputs, select dropdowns, and button padding scale down on mobile to prevent clipping and layout breaking.
-* **Accessibility**: Full compliance with `color-scheme: light` color contracts and keyboard navigation targets.
+# 📂 Project Structure
+
+```text
+yojnasetu/
+│
+├── public/
+│
+├── screenshots/
+│   ├── home.png
+│   ├── signup.png
+│   ├── chatbot.png
+│   ├── results.png
+│   ├── scheme-details.png
+│   ├── copilot.png
+│   └── map.png
+│
+├── src/
+│   ├── components/
+│   ├── pages/
+│   ├── assets/
+│   └── ...
+│
+├── package.json
+├── vite.config.js
+└── README.md
+```
+
+---
+
+# 🎯 Design Philosophy
+
+YojnaSetu is built around three principles:
+
+### 1. Simplicity
+
+Government schemes should be understandable without requiring users to interpret complex terminology.
+
+### 2. Personalization
+
+Recommendations should depend on the user's actual profile and eligibility criteria.
+
+### 3. Accessibility
+
+Users who are comfortable with technology should be able to apply online, while users who need physical assistance should receive offline navigation support.
+
+---
+
+# 🌍 Social Impact
+
+YojnaSetu aims to reduce the gap between **government benefits and the citizens who are eligible for them**.
+
+The platform focuses on:
+
+* Improving scheme discoverability
+* Reducing information barriers
+* Simplifying eligibility understanding
+* Helping users prepare documents
+* Guiding citizens through application workflows
+* Supporting users who need offline assistance
+
+---
+
+# 🔮 Future Enhancements
+
+Potential future improvements include:
+
+* 🔐 Stronger authentication and identity verification
+* 🧠 More advanced AI-based eligibility matching
+* 📚 Larger verified government scheme database
+* 🌐 Multi-language support
+* 🔄 Real-time scheme information updates
+* 📍 More accurate live location services
+* 📊 Application status dashboard
+* 🔔 Application and deadline notifications
+* 📱 Progressive Web App support
+* ♿ Enhanced accessibility features
+
+---
+
+# 🏆 Project Highlights
+
+| Area               | Implementation                           |
+| ------------------ | ---------------------------------------- |
+| Scheme Discovery   | Personalized search & AI chatbot         |
+| Eligibility        | Profile-based matching                   |
+| AI Assistance      | Conversational & simplified explanations |
+| Online Assistance  | Application Co-Pilot                     |
+| Offline Assistance | GPS / CSC Navigator                      |
+| Documents          | Document checklist & vault               |
+| Maps               | Leaflet + React Leaflet                  |
+| Routing            | Custom hash-based routing                |
+| UI                 | Responsive React interface               |
+| Deployment         | Vercel                                   |
+
+---
+
+# 👩‍💻 Author
+
+**Priyanshi Soni**
+
+B.E. Computer Science Engineering
+Chitkara University, Himachal Pradesh
+
+---
+
+## ⭐ Support the Project
+
+If you find YojnaSetu useful or interesting, consider giving the repository a ⭐ on GitHub.
+
+<p align="center">
+  <strong>YojnaSetu — Making Government Schemes Easier to Discover, Understand & Apply.</strong>
+</p>
