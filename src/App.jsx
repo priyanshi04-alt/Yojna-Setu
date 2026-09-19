@@ -4,7 +4,7 @@ import {
   Clock, MessageCircle, MapPin, FileText, Send, Zap, ShieldCheck,
   Briefcase, HelpCircle, Info, PhoneCall, ExternalLink, X,
   UserPlus, FileEdit, CheckCircle, CreditCard, Landmark, Home, User, Banknote,
-  Compass, Layers, Navigation, ChevronRight
+  Compass, Layers, Navigation, ChevronRight, Menu
 } from 'lucide-react';
 import { schemesData } from './data/SchemesData';
 import logoImg from './assets/yojnasetu_logo.png';
@@ -196,6 +196,7 @@ const AuthView = ({ onComplete }) => {
 // VIEW 2: HOME (Light Red Theme)
 // ==========================================
 const HomeView = ({ userProfile, onViewDetails, onOpenChat, onLogout, onLogin, onSearch, onOpenVault }) => {
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [formData, setFormData] = useState({ 
     category: userProfile?.category || '', 
     caste: userProfile?.caste || '',
@@ -264,9 +265,9 @@ const HomeView = ({ userProfile, onViewDetails, onOpenChat, onLogout, onLogin, o
       <header className="home-header">
         <div className="container header-content">
           <div className="logo">
-            <img src={logoImg} alt="YojnaSetu Logo" style={{ height: '56px', width: 'auto', objectFit: 'contain', marginRight: '12px' }} />
-            <div>
-              YojnaSetu
+            <img src={logoImg} alt="YojnaSetu Logo" className="logo-icon-img" />
+            <div className="logo-text-wrap">
+              <span className="logo-main-text">YojnaSetu</span>
               <span className="logo-sub">Your Guide to Government Schemes</span>
             </div>
           </div>
@@ -280,12 +281,52 @@ const HomeView = ({ userProfile, onViewDetails, onOpenChat, onLogout, onLogin, o
           
           <div className="header-actions">
             {!userProfile ? (
-              <button className="btn btn-primary" onClick={onLogin}>Log In / Sign Up</button>
+              <button className="btn btn-primary header-auth-btn" onClick={onLogin}>Log In / Sign Up</button>
             ) : (
-              <button className="btn btn-outline" onClick={onLogout} style={{ color: '#dc2626', borderColor: '#fca5a5' }}>Logout</button>
+              <button className="btn btn-outline header-auth-btn" onClick={onLogout} style={{ color: '#dc2626', borderColor: '#fca5a5' }}>Logout</button>
             )}
+            <button 
+              className="mobile-menu-btn" 
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              aria-label="Toggle navigation menu"
+            >
+              {mobileMenuOpen ? <X size={22} /> : <Menu size={22} />}
+            </button>
           </div>
         </div>
+
+        {/* Mobile Navigation Drawer */}
+        {mobileMenuOpen && (
+          <div className="mobile-nav-drawer">
+            <a href="#" className="mobile-nav-link active" onClick={() => setMobileMenuOpen(false)}>
+              <Home size={18} /> Home
+            </a>
+            <a href="#schemes" className="mobile-nav-link" onClick={() => setMobileMenuOpen(false)}>
+              <FileText size={18} /> Schemes
+            </a>
+            <a href="#how-it-works" className="mobile-nav-link" onClick={() => setMobileMenuOpen(false)}>
+              <Info size={18} /> How It Works
+            </a>
+            {userProfile && (
+              <a className="mobile-nav-link" onClick={() => { setMobileMenuOpen(false); onOpenVault(); }} style={{ cursor: 'pointer' }}>
+                <Landmark size={18} /> Documents Vault
+              </a>
+            )}
+            <a className="mobile-nav-link" onClick={() => { setMobileMenuOpen(false); onOpenChat(); }} style={{ cursor: 'pointer' }}>
+              <MessageSquare size={18} /> AI Chatbot
+            </a>
+            <div className="mobile-nav-divider"></div>
+            {!userProfile ? (
+              <button className="btn btn-primary mobile-drawer-btn" onClick={() => { setMobileMenuOpen(false); onLogin(); }}>
+                Log In / Sign Up
+              </button>
+            ) : (
+              <button className="btn btn-outline mobile-drawer-btn" style={{ color: '#dc2626', borderColor: '#fca5a5' }} onClick={() => { setMobileMenuOpen(false); onLogout(); }}>
+                Logout
+              </button>
+            )}
+          </div>
+        )}
       </header>
 
       <section className="hero">
@@ -295,9 +336,9 @@ const HomeView = ({ userProfile, onViewDetails, onOpenChat, onLogout, onLogin, o
             <p>Personalized scheme recommendations based on your profile in just a few seconds.</p>
             
             <div className="checkmarks">
-              <div className="check-item"><Check className="check-icon" size={20}/> 100% Free</div>
-              <div className="check-item"><Check className="check-icon" size={20}/> Official Information</div>
-              <div className="check-item"><Check className="check-icon" size={20}/> Secure & Reliable</div>
+              <div className="check-item"><Check className="check-icon" size={18}/> 100% Free</div>
+              <div className="check-item"><Check className="check-icon" size={18}/> Official Information</div>
+              <div className="check-item"><Check className="check-icon" size={18}/> Secure & Reliable</div>
             </div>
           </div>
         </div>
@@ -310,8 +351,8 @@ const HomeView = ({ userProfile, onViewDetails, onOpenChat, onLogout, onLogin, o
           </div>
           
           <form className="inline-form" onSubmit={handleSearchSubmit}>
-            <div className="input-box">
-              <select required value={formData.category} onChange={e => setFormData({...formData, category: e.target.value})} style={{width: '120px'}}>
+            <div className="input-box form-field-category">
+              <select required value={formData.category} onChange={e => setFormData({...formData, category: e.target.value})}>
                 <option value="" disabled>Profession</option>
                 <option value="student">Student</option>
                 <option value="farmer">Farmer</option>
@@ -319,8 +360,8 @@ const HomeView = ({ userProfile, onViewDetails, onOpenChat, onLogout, onLogin, o
                 <option value="business">Business</option>
               </select>
             </div>
-            <div className="input-box">
-              <select required value={formData.caste} onChange={e => setFormData({...formData, caste: e.target.value})} style={{width: '100px'}}>
+            <div className="input-box form-field-caste">
+              <select required value={formData.caste} onChange={e => setFormData({...formData, caste: e.target.value})}>
                 <option value="" disabled>Caste</option>
                 <option value="General">General</option>
                 <option value="OBC">OBC</option>
@@ -329,8 +370,8 @@ const HomeView = ({ userProfile, onViewDetails, onOpenChat, onLogout, onLogin, o
                 <option value="EWS">EWS</option>
               </select>
             </div>
-            <div className="input-box">
-              <select required value={formData.state} onChange={e => setFormData({...formData, state: e.target.value})} style={{width: '110px'}}>
+            <div className="input-box form-field-state">
+              <select required value={formData.state} onChange={e => setFormData({...formData, state: e.target.value})}>
                 <option value="" disabled>State</option>
                 <option value="Puducherry">Puducherry</option>
                 <option value="Haryana">Haryana</option>
@@ -339,13 +380,13 @@ const HomeView = ({ userProfile, onViewDetails, onOpenChat, onLogout, onLogin, o
                 <option value="West Bengal">West Bengal</option>
               </select>
             </div>
-            <div className="input-box">
-              <input type="number" required placeholder="Age" value={formData.age} onChange={e => setFormData({...formData, age: e.target.value})} style={{width: '70px'}} />
+            <div className="input-box form-field-age">
+              <input type="number" required placeholder="Age" value={formData.age} onChange={e => setFormData({...formData, age: e.target.value})} />
             </div>
-            <div className="input-box">
-              <input type="number" required placeholder="Income" value={formData.income} onChange={e => setFormData({...formData, income: e.target.value})} style={{width: '100px'}} />
+            <div className="input-box form-field-income">
+              <input type="number" required placeholder="Annual Income (₹)" value={formData.income} onChange={e => setFormData({...formData, income: e.target.value})} />
             </div>
-            <button type="submit" className="btn btn-primary" style={{ whiteSpace: 'nowrap' }}>
+            <button type="submit" className="btn btn-primary search-submit-btn">
               Find My Schemes →
             </button>
           </form>
@@ -1604,6 +1645,7 @@ Guidance:
 // VIEW 2.5: SEARCH RESULTS
 // ==========================================
 const SearchResultsView = ({ searchParams, onViewDetails, onOpenChat, onLogout, onBack, onOpenVault, userProfile }) => {
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const age = parseInt(searchParams.age) || 0;
   const income = parseInt(searchParams.income) || 0;
   
@@ -1654,9 +1696,9 @@ const SearchResultsView = ({ searchParams, onViewDetails, onOpenChat, onLogout, 
       <header className="home-header">
         <div className="container header-content">
           <div className="logo" onClick={onBack} style={{ cursor: 'pointer' }}>
-            <img src={logoImg} alt="YojnaSetu Logo" style={{ height: '56px', width: 'auto', objectFit: 'contain', marginRight: '12px' }} />
-            <div>
-              YojnaSetu
+            <img src={logoImg} alt="YojnaSetu Logo" className="logo-icon-img" />
+            <div className="logo-text-wrap">
+              <span className="logo-main-text">YojnaSetu</span>
               <span className="logo-sub">Your Guide to Government Schemes</span>
             </div>
           </div>
@@ -1667,12 +1709,43 @@ const SearchResultsView = ({ searchParams, onViewDetails, onOpenChat, onLogout, 
           </nav>
           
           <div className="header-actions">
-            <button className="btn btn-outline" onClick={onLogout} style={{ color: '#dc2626', borderColor: '#fca5a5' }}>Logout</button>
+            <button className="btn btn-outline header-auth-btn" onClick={onLogout} style={{ color: '#dc2626', borderColor: '#fca5a5' }}>Logout</button>
+            <button 
+              className="mobile-menu-btn" 
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              aria-label="Toggle navigation menu"
+            >
+              {mobileMenuOpen ? <X size={22} /> : <Menu size={22} />}
+            </button>
           </div>
         </div>
+
+        {/* Mobile Navigation Drawer */}
+        {mobileMenuOpen && (
+          <div className="mobile-nav-drawer">
+            <a className="mobile-nav-link" onClick={() => { setMobileMenuOpen(false); onBack(); }} style={{ cursor: 'pointer' }}>
+              <Home size={18} /> Home
+            </a>
+            <a href="#" className="mobile-nav-link active" onClick={() => setMobileMenuOpen(false)}>
+              <FileText size={18} /> Search Results
+            </a>
+            {userProfile && (
+              <a className="mobile-nav-link" onClick={() => { setMobileMenuOpen(false); onOpenVault(); }} style={{ cursor: 'pointer' }}>
+                <Landmark size={18} /> Documents Vault
+              </a>
+            )}
+            <a className="mobile-nav-link" onClick={() => { setMobileMenuOpen(false); onOpenChat(); }} style={{ cursor: 'pointer' }}>
+              <MessageSquare size={18} /> AI Chatbot
+            </a>
+            <div className="mobile-nav-divider"></div>
+            <button className="btn btn-outline mobile-drawer-btn" style={{ color: '#dc2626', borderColor: '#fca5a5' }} onClick={() => { setMobileMenuOpen(false); onLogout(); }}>
+              Logout
+            </button>
+          </div>
+        )}
       </header>
 
-      <section className="section" style={{ background: 'var(--glass-bg)', minHeight: '80vh', paddingTop: '8rem' }}>
+      <section className="section search-results-section" style={{ background: 'var(--glass-bg)', minHeight: '80vh' }}>
         <div className="container" style={{ maxWidth: '1000px' }}>
           <div className="schemes-header">
             <div>
@@ -1729,6 +1802,7 @@ const SearchResultsView = ({ searchParams, onViewDetails, onOpenChat, onLogout, 
 // DOCUMENTS VAULT VIEW
 // ==========================================
 const DocumentsVaultView = ({ uploadedDocs, saveDocument, removeDocument, onBack, onLogout, userProfile }) => {
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [selectedDoc, setSelectedDoc] = useState(null);
   const [isScanning, setIsScanning] = useState(false);
   const [customDocName, setCustomDocName] = useState('');
@@ -1808,9 +1882,9 @@ const DocumentsVaultView = ({ uploadedDocs, saveDocument, removeDocument, onBack
       <header className="home-header">
         <div className="container header-content">
           <div className="logo" onClick={onBack} style={{ cursor: 'pointer' }}>
-            <img src={logoImg} alt="YojnaSetu Logo" style={{ height: '56px', width: 'auto', objectFit: 'contain', marginRight: '12px' }} />
-            <div>
-              YojnaSetu
+            <img src={logoImg} alt="YojnaSetu Logo" className="logo-icon-img" />
+            <div className="logo-text-wrap">
+              <span className="logo-main-text">YojnaSetu</span>
               <span className="logo-sub">Your Guide to Government Schemes</span>
             </div>
           </div>
@@ -1819,9 +1893,32 @@ const DocumentsVaultView = ({ uploadedDocs, saveDocument, removeDocument, onBack
             <a href="#" className="active">Documents Vault</a>
           </nav>
           <div className="header-actions">
-            <button className="btn btn-outline" onClick={onLogout} style={{ color: '#dc2626', borderColor: '#fca5a5' }}>Logout</button>
+            <button className="btn btn-outline header-auth-btn" onClick={onLogout} style={{ color: '#dc2626', borderColor: '#fca5a5' }}>Logout</button>
+            <button 
+              className="mobile-menu-btn" 
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              aria-label="Toggle navigation menu"
+            >
+              {mobileMenuOpen ? <X size={22} /> : <Menu size={22} />}
+            </button>
           </div>
         </div>
+
+        {/* Mobile Navigation Drawer */}
+        {mobileMenuOpen && (
+          <div className="mobile-nav-drawer">
+            <a className="mobile-nav-link" onClick={() => { setMobileMenuOpen(false); onBack(); }} style={{ cursor: 'pointer' }}>
+              <Home size={18} /> Home
+            </a>
+            <a href="#" className="mobile-nav-link active" onClick={() => setMobileMenuOpen(false)}>
+              <Landmark size={18} /> Documents Vault
+            </a>
+            <div className="mobile-nav-divider"></div>
+            <button className="btn btn-outline mobile-drawer-btn" style={{ color: '#dc2626', borderColor: '#fca5a5' }} onClick={() => { setMobileMenuOpen(false); onLogout(); }}>
+              Logout
+            </button>
+          </div>
+        )}
       </header>
 
       {isScanning && (
